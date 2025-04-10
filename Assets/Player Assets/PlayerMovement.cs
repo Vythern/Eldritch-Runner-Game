@@ -7,8 +7,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Camera playerCamera; //Manipulate the camera based on mouse movement with this.  
     [SerializeField] private Collider2D groundCollider; //Used to verify whether the player is in the air / on the ground.  
     //Groundedness is checked via a trigger collider on the player game object.  
+    //TODO:  The ground collider may or may not actually be getting used.  I believe it is set as a trigger and therefore separate, but the serialized field might do nothing in this case?  
 
 
+    private float dashCooldown = 1f; //The player can dash once per second, this cooldown can be reset by interacting with the game environment in some ways, eg parrying attacks or "pogoing".  
+    private float lastDash = 0f;
+    private bool dashReady = true;
+    [SerializeField] private float dashForce = 20f; //dash force should be roughly equivalent to the player's maximum horizontal movement speed.  
+    //If it's too low, then the player loses speed by dashing.  If it's really high, it will quickly be dropped by friction.  Aim high with this number.  
+
+    private Vector2 cursorCoordinates; //Used to determine where the player's attacks and dash will go to.  Also could be used for parry / block angle.  
+    [SerializeField] private GameObject cursorHelper; //Visual demonstration for where the cursor is.  
 
 
     private Vector2 movementDirection = Vector2.zero; //Track what direction the player is trying to move.  Send to fixed update later.  
@@ -29,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     KeyCode MoveDown = KeyCode.S;
     KeyCode Jump = KeyCode.Space;
     KeyCode Crouch = KeyCode.X;
+    KeyCode Dash = KeyCode.LeftShift;
 
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -38,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
             if (collision.IsTouchingLayers(LayerMask.GetMask("Default")))
             {
                 grounded = true;
+                dashReady = true; //player can only dash again after touching the ground.  
             }
             else
             {
@@ -75,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (Input.GetKey(MoveDown))
             {
-                //descend ladder, maybe crouch or slide?  
+                //descend ladder, maybe crouch or slide?  Fast fall?  
             }
             if (Input.GetKeyDown(Jump))
             {
@@ -84,6 +95,21 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(Crouch))
             {
                 //disable jump
+            }
+            if (Input.GetKeyDown(Dash))
+            {
+                if (Input.GetKeyDown(Dash))
+                {
+                    if (Time.time - dashCooldown > lastDash)
+                    {
+                        lastDash = Time.time;
+
+                        Vector2 dashDirection = (cursorHelper.transform.position - transform.position).normalized;
+                        playerBody.linearVelocity = Vector2.zero;
+                        playerBody.AddForce(dashDirection * dashForce, ForceMode2D.Impulse);
+                        //get mouse cursor position, add velocity in direction of mouse cursor.  
+                    }
+                }
             }
         }
         else
@@ -95,6 +121,19 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(StrafeRight))
             {
                 movementDirection.x += 0.33f;
+            }
+            if (Input.GetKeyDown(Dash))
+            {
+                if (dashReady)
+                {
+                    dashReady = false;
+                    lastDash = Time.time;
+
+                    Vector2 dashDirection = (cursorHelper.transform.position - transform.position).normalized;
+                    playerBody.linearVelocity = Vector2.zero;
+                    playerBody.AddForce(dashDirection * dashForce, ForceMode2D.Impulse);
+                    //get mouse cursor position, add velocity in direction of mouse cursor.  
+                }
             }
         }
     }
@@ -115,22 +154,35 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        cursorCoordinates = Camera.main.ScreenToWorldPoint((Vector2)Input.mousePosition);
+        cursorHelper.transform.position = new Vector3(cursorCoordinates.x, cursorCoordinates.y, 0f);
+        //print("Coordinates:  " + cursorCoordinates);
+        //print("Helper location:  " + cursorHelper.transform.position);
+
+        
+        
         //print(grounded);
         //print(playerBody.linearVelocity);
         handleInput();
+    }
+
+    private void OnDrawGizmos() //visual debugging
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position, cursorHelper.transform.position);
     }
 
 
     void FixedUpdate()
     {
         applyPhysics();
-        print(playerBody.linearVelocity.x);
+        //print(playerBody.linearVelocity.x);
         playerBody.AddForce(movementDirection.x * 1000 * transform.right * Time.fixedDeltaTime);
         playerBody.AddForce(movementDirection.y * 1000 * transform.up * Time.fixedDeltaTime);
     }
