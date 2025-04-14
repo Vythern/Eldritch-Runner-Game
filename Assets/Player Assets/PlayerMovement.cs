@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.IntegerTime;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(collision != null)
         {
-            if (collision.IsTouchingLayers(1 << 6))
+            if (collision.IsTouchingLayers(1 << 6 | 1 << 11))
             {
                 grounded = true;
                 dashReady = true; //player can only dash again after touching the ground.  
@@ -82,6 +83,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Time.time - lastDamageInstance >= intangibleDuration) //Do not register damage if the player is intangible.  
             {
+                //start intangibility coroutine.  
+                StartCoroutine("activateInvulnerability");
                 print("Player hit by projectile");
                 lastDamageInstance = Time.time;
                 playerHealth--;
@@ -96,6 +99,40 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    private IEnumerator activateInvulnerability()
+    {
+        //immediately set visibility to 66%
+        //make player's layer "intangible" for the duration
+        //make player's visibility alternate from 33% to 66% every 0.2 seconds for the duration of intangibleDuration.  
+
+        this.gameObject.layer = 11;
+
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>(); //sprite renderer must not be in children.  
+
+        float elapsedTime = 0f;
+        float flickerSpeed = 0.2f;
+        bool visible = true;
+
+        while (elapsedTime < intangibleDuration)
+        {
+            elapsedTime += flickerSpeed;
+
+            float alpha = visible ? 0.33f : 0.66f;
+            Color newColor = renderer.color;
+            newColor.a = alpha;
+            renderer.color = newColor;
+
+            visible = !visible;
+            yield return new WaitForSeconds(flickerSpeed);
+        }
+
+        //restore transparency.  
+        Color finalColor = renderer.color;
+        finalColor.a = 1f;
+        renderer.color = finalColor;
+        this.gameObject.layer = 6;
     }
 
     private void handleInput()
