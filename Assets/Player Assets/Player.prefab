@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 400424528630324350}
   - component: {fileID: -5348488229197978697}
   - component: {fileID: 5343314191342504554}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -249,10 +249,10 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 897
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 118
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -270,23 +270,23 @@ CapsuleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1014
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 897
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 897
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 897
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 897
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
@@ -309,6 +309,7 @@ MonoBehaviour:
   playerBody: {fileID: 2399920794292808567}
   playerCamera: {fileID: 2033890137711165099}
   groundCollider: {fileID: 5343314191342504554}
+  dashForce: 20
   cursorHelper: {fileID: 8939758700580963136}
   frictionOffset: 49
   airFrictionOffset: 49.75
@@ -325,10 +326,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1014
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -338,10 +339,10 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
@@ -370,7 +371,7 @@ GameObject:
   - component: {fileID: 1487413744341714748}
   - component: {fileID: 6919734706363755562}
   - component: {fileID: 3316213773956304960}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CursorHelper
   m_TagString: Untagged
   m_Icon: {fileID: 0}

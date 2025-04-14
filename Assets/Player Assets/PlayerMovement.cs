@@ -1,3 +1,5 @@
+using Unity.IntegerTime;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -31,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
     //At peak speeds of 19, this is faster, but you get less control over movement.  Faster than the ground speed, but less control.  Requires more planning and precision.  
 
 
+    private LayerMask projectileOnly = (1 << 9);
+    private float lastParry = 0f;
+    private float parryDelay = 3f;
+
 
     KeyCode StrafeLeft = KeyCode.A;
     KeyCode StrafeRight = KeyCode.D;
@@ -39,13 +45,13 @@ public class PlayerMovement : MonoBehaviour
     KeyCode Jump = KeyCode.Space;
     KeyCode Crouch = KeyCode.X;
     KeyCode Dash = KeyCode.LeftShift;
-
+    KeyCode Parry = KeyCode.Mouse1;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision != null)
         {
-            if (collision.IsTouchingLayers(LayerMask.GetMask("Default")))
+            if (collision.IsTouchingLayers(1 << 6))
             {
                 grounded = true;
                 dashReady = true; //player can only dash again after touching the ground.  
@@ -100,14 +106,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (Input.GetKeyDown(Dash))
                 {
-                    if (Time.time - dashCooldown > lastDash)
+                    if (dashReady)
                     {
-                        lastDash = Time.time;
-
-                        Vector2 dashDirection = (cursorHelper.transform.position - transform.position).normalized;
-                        playerBody.linearVelocity = Vector2.zero;
-                        playerBody.AddForce(dashDirection * dashForce, ForceMode2D.Impulse);
-                        //get mouse cursor position, add velocity in direction of mouse cursor.  
+                        dash();
                     }
                 }
             }
@@ -126,15 +127,13 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (dashReady)
                 {
-                    dashReady = false;
-                    lastDash = Time.time;
-
-                    Vector2 dashDirection = (cursorHelper.transform.position - transform.position).normalized;
-                    playerBody.linearVelocity = Vector2.zero;
-                    playerBody.AddForce(dashDirection * dashForce, ForceMode2D.Impulse);
-                    //get mouse cursor position, add velocity in direction of mouse cursor.  
+                    dash();
                 }
             }
+        }
+        if(Input.GetKeyDown(Parry) && parryReady())
+        {
+            activateParry();
         }
     }
 
@@ -149,7 +148,42 @@ public class PlayerMovement : MonoBehaviour
         playerBody.linearVelocityX = tempVelocity.x;
     }
 
+    private void activateParry()
+    {
+        lastParry = Time.time;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, 2f, projectileOnly); //make the parry directional?  
+        for(int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].CompareTag("Projectile"))
+            {
+                Projectile currentProjectile = colliders[i].gameObject.GetComponent<Projectile>();
+                currentProjectile.reflect();
+                //TODO:  if projectile was sent by enemy, reflect.  if else, then send in a random direction.  
+            }
+        }
+        //scan in circle around player.  
+        //get list of projectiles in scan range
+        //delete projectiles in range
+        //play parry noise
+    }
 
+    private bool parryReady()
+    {
+        if(Time.time - lastParry >= parryDelay) { return true; }
+        else { return false; }
+    }
+
+    private void dash()
+    {
+        dashReady = false;
+        lastDash = Time.time;
+
+        Vector2 dashDirection = (cursorHelper.transform.position - transform.position).normalized;
+        playerBody.linearVelocity = Vector2.zero;
+        Vector2 finalForce = dashForce * new Vector2(dashDirection.x, dashDirection.y * 0.5f);
+        playerBody.AddForce(finalForce, ForceMode2D.Impulse);
+        //get mouse cursor position, add velocity in direction of mouse cursor.  
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
