@@ -37,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
     private float lastParry = 0f;
     private float parryDelay = 3f;
 
+    private int playerHealth = 2; //the number of hits that the player can take before death.  
+    private float intangibleDuration = 2f; //Duration that the player is immune to taking another hit when damaged.  
+    private float lastDamageInstance = 0f;
+
 
     KeyCode StrafeLeft = KeyCode.A;
     KeyCode StrafeRight = KeyCode.D;
@@ -70,6 +74,28 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         grounded = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == 9) //if the player hit a projectile
+        {
+            if (Time.time - lastDamageInstance >= intangibleDuration) //Do not register damage if the player is intangible.  
+            {
+                print("Player hit by projectile");
+                lastDamageInstance = Time.time;
+                playerHealth--;
+                if (playerHealth >= 1) //if player has health remaining, then give them temporary intangibility
+                {
+                    //set player to only collide with default layer until intangible duration is over.  
+                }
+                else
+                {
+                    print("Player died to projectile");
+                    //kill player.  
+                }
+            }
+        }
     }
 
     private void handleInput()
@@ -150,6 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void activateParry()
     {
+        //TODO:  Make parry linger a short time period, so that it is more lenient with timing?  
         lastParry = Time.time;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, 2f, projectileOnly); //make the parry directional?  
         for(int i = 0; i < colliders.Length; i++)
@@ -158,7 +185,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 Projectile currentProjectile = colliders[i].gameObject.GetComponent<Projectile>();
                 currentProjectile.reflect();
+
                 //TODO:  if projectile was sent by enemy, reflect.  if else, then send in a random direction.  
+                //play successful parry sound
+                //reset parry cooldown.  reset jumps and dash.  reset attack cooldown.  
             }
         }
         //scan in circle around player.  

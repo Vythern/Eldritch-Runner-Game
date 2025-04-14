@@ -25,9 +25,9 @@ public class Projectile : MonoBehaviour
     {
         if(projectileOrigin != null)
         {
+            this.gameObject.layer = 10; //change layer to reflected projectile so that it can no longer hit the player.  
             projectileBody.linearVelocity = Vector2.zero;
             Vector2 direction = projectileOrigin.transform.position - projectileBody.transform.position;
-            direction.Normalize();
             projectileBody.AddForce(direction * this.projectileSpeed * 2f);
         }
     }
