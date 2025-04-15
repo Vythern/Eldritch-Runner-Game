@@ -35,8 +35,11 @@ public class PlayerMovement : MonoBehaviour
 
 
     private LayerMask projectileOnly = (1 << 9);
-    private float lastParry = 0f;
-    private float parryDelay = 3f;
+    private float lastParry = -4f;
+    private float parryCooldown = 4f; //parry delay on whiff is large, but if the parry is successful, then the "lastParry" will be reset, allowing an immediate followup.  
+    private bool isParrying = false;
+
+    private float parryDuration = 0.3f; //Duration that the player is immune to damage and capable of reflecting projectiles / attacks.  
 
     private int playerHealth = 2; //the number of hits that the player can take before death.  
     private float intangibleDuration = 2f; //Duration that the player is immune to taking another hit when damaged.  
@@ -83,6 +86,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Time.time - lastDamageInstance >= intangibleDuration) //Do not register damage if the player is intangible.  
             {
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, 5f, projectileOnly);
+                for(int i = 0; i < colliders.Length; i++)
+                {
+                    colliders[i].gameObject.GetComponent<Projectile>().activateHitEffect();
+                }
                 //start intangibility coroutine.  
                 StartCoroutine("activateInvulnerability");
                 print("Player hit by projectile");
@@ -134,6 +142,32 @@ public class PlayerMovement : MonoBehaviour
         renderer.color = finalColor;
         this.gameObject.layer = 6;
     }
+
+    private IEnumerator activateParryRoutine()
+    {
+        this.gameObject.layer = 11; //player is intangible throughout the parry's duration
+
+        isParrying = true;
+
+        float elapsedTime = 0f;
+        float parryTick = 0.03f; //how long each scan for projectiles lasts.  
+        //by default, scan 10 times per parry.  
+
+        while (elapsedTime < parryDuration)
+        {
+            handleParry();
+            elapsedTime += parryTick;
+
+            yield return new WaitForSeconds(elapsedTime);
+        }
+
+        isParrying = false;
+        this.gameObject.layer = 6; //restore player's layer.  
+    }
+
+
+
+
 
     private void handleInput()
     {
@@ -196,7 +230,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(Input.GetKeyDown(Parry) && parryReady())
         {
-            activateParry();
+            StartCoroutine("activateParryRoutine");
         }
     }
 
@@ -211,7 +245,13 @@ public class PlayerMovement : MonoBehaviour
         playerBody.linearVelocityX = tempVelocity.x;
     }
 
-    private void activateParry()
+    private void resetCooldowns()
+    {
+        lastParry = Time.time - parryCooldown; //reset parry
+        lastDash = Time.time - dashCooldown;
+    }
+
+    private void handleParry()
     {
         //TODO:  Make parry linger a short time period, so that it is more lenient with timing?  
         lastParry = Time.time;
@@ -236,7 +276,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool parryReady()
     {
-        if(Time.time - lastParry >= parryDelay) { return true; }
+        if(Time.time - lastParry >= parryCooldown) { return true; }
         else { return false; }
     }
 
@@ -277,6 +317,14 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(transform.position, cursorHelper.transform.position);
+
+
+        if (isParrying)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, 2f);
+        }
+
     }
 
 

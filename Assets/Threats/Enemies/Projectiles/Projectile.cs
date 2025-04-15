@@ -52,7 +52,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void activateHitEffect() //upon colliding, activate this projectile's on hit effect.  
+    public void activateHitEffect() //upon colliding, activate this projectile's on hit effect.  
     {
         switch(this.projectileType)
         {
