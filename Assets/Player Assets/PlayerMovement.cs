@@ -146,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator activateParryRoutine()
     {
         this.gameObject.layer = 11; //player is intangible throughout the parry's duration
+        lastParry = Time.time;
 
         isParrying = true;
 
@@ -158,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
             handleParry();
             elapsedTime += parryTick;
 
-            yield return new WaitForSeconds(elapsedTime);
+            yield return new WaitForSeconds(parryTick);
         }
 
         isParrying = false;
@@ -230,6 +231,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(Input.GetKeyDown(Parry) && parryReady())
         {
+            print("Parrying");
             StartCoroutine("activateParryRoutine");
         }
     }
@@ -248,13 +250,17 @@ public class PlayerMovement : MonoBehaviour
     private void resetCooldowns()
     {
         lastParry = Time.time - parryCooldown; //reset parry
-        lastDash = Time.time - dashCooldown;
+        lastDash = Time.time - dashCooldown; //reset dash
+        dashReady = true; 
+        float timeSinceLastParry = Time.time - lastParry;
+        print("parry reset:\nLast parry: " + lastParry +
+              "\nTime.time - lastParry: " + timeSinceLastParry +
+              "\nParry ready: " + parryReady());
     }
 
     private void handleParry()
     {
         //TODO:  Make parry linger a short time period, so that it is more lenient with timing?  
-        lastParry = Time.time;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, 2f, projectileOnly); //make the parry directional?  
         for(int i = 0; i < colliders.Length; i++)
         {
@@ -262,6 +268,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Projectile currentProjectile = colliders[i].gameObject.GetComponent<Projectile>();
                 currentProjectile.reflect();
+                resetCooldowns();
 
                 //TODO:  if projectile was sent by enemy, reflect.  if else, then send in a random direction.  
                 //play successful parry sound
