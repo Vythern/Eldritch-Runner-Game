@@ -13,6 +13,16 @@ public class Turret : MonoBehaviour
 
     private LayerMask playerOnly = (1 << 6);
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == 10)
+        {
+            //kill turret.  
+            this.gameObject.SetActive(false);
+        }
+    }
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
