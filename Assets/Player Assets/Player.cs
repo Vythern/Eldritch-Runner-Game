@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D playerBody; //Reference, add, and manipulate velocity / movement.  
     [SerializeField] private Camera playerCamera; //Manipulate the camera based on mouse movement with this.  
@@ -279,6 +279,14 @@ public class PlayerMovement : MonoBehaviour
         //get list of projectiles in scan range
         //delete projectiles in range
         //play parry noise
+    }
+
+    public void triggerDeathPit()
+    {
+        this.gameObject.layer = 5;
+        playerBody.linearVelocityX = 0;
+        playerBody.gravityScale = 0.33f;
+        this.enabled = false;
     }
 
     private bool parryReady()

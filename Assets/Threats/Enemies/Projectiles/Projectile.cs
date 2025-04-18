@@ -4,6 +4,8 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D projectileBody;
     [SerializeField] private float projectileSpeed;
+
+    [SerializeField] private Material reflectMaterial;
     private GameObject projectileOrigin = null;
 
     [SerializeField] private int projectileType = 0; //determines how the projectile should be treated on impact / etc.  
@@ -29,6 +31,7 @@ public class Projectile : MonoBehaviour
     {
         if(projectileOrigin != null)
         {
+            this.GetComponent<Renderer>().material = reflectMaterial;
             this.gameObject.layer = 10; //change layer to reflected projectile so that it can no longer hit the player.  
             projectileBody.linearVelocity = Vector2.zero;
             Vector2 direction = projectileOrigin.transform.position - projectileBody.transform.position;
