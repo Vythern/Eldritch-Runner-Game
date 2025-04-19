@@ -61,8 +61,11 @@ public class Player : MonoBehaviour
         {
             if (collision.IsTouchingLayers(1 << 6 | 1 << 11))
             {
-                grounded = true;
-                dashReady = true; //player can only dash again after touching the ground.  
+                if(collision.gameObject.layer != 9 && collision.gameObject.layer != 8)
+                {
+                    grounded = true;
+                    dashReady = true; //player can only dash again after touching the ground.  
+                }
             }
             else
             {
@@ -80,32 +83,70 @@ public class Player : MonoBehaviour
         grounded = false;
     }
 
+    private void handleProjectileCollision()
+    {
+        if (Time.time - lastDamageInstance >= intangibleDuration) //Do not register damage if the player is intangible.  
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, 5f, projectileOnly);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                colliders[i].gameObject.GetComponent<Projectile>().activateHitEffect();
+            }
+            //start intangibility coroutine.  
+            StartCoroutine("activateInvulnerability");
+            print("Player hit by projectile");
+            lastDamageInstance = Time.time;
+            playerHealth--;
+            if (playerHealth >= 1) //if player has health remaining, then give them temporary intangibility
+            {
+                //set player to only collide with default layer until intangible duration is over.  
+            }
+            else
+            {
+                playerBody.linearVelocityX = 0;
+                this.enabled = false;
+                print("Player died to projectile");
+                //kill player.  
+            }
+        }
+    }
+
+    private void handleTrapCollision(Collision2D col)
+    {
+        if (Time.time - lastDamageInstance >= intangibleDuration) //Do not register damage if the player is intangible.  
+        {
+            //start intangibility coroutine.  
+            StartCoroutine("activateInvulnerability");
+            print("Player hit trap");
+            lastDamageInstance = Time.time;
+            playerHealth--;
+            if (playerHealth >= 1) //if player has health remaining, then give them temporary intangibility
+            {
+                //knockback player in opposite direction of trap.  
+                Vector2 direction = (this.transform.position - col.transform.position).normalized;
+                playerBody.linearVelocity = Vector2.zero;
+                playerBody.AddForce(direction * 5f, ForceMode2D.Impulse);
+            }
+            else
+            {
+                playerBody.linearVelocityX = 0;
+                playerBody.gravityScale = 0.33f;
+                this.enabled = false;
+                print("Player died to trap");
+                //kill player.  
+            }
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.layer == 9) //if the player hit a projectile
         {
-            if (Time.time - lastDamageInstance >= intangibleDuration) //Do not register damage if the player is intangible.  
-            {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, 5f, projectileOnly);
-                for(int i = 0; i < colliders.Length; i++)
-                {
-                    colliders[i].gameObject.GetComponent<Projectile>().activateHitEffect();
-                }
-                //start intangibility coroutine.  
-                StartCoroutine("activateInvulnerability");
-                print("Player hit by projectile");
-                lastDamageInstance = Time.time;
-                playerHealth--;
-                if (playerHealth >= 1) //if player has health remaining, then give them temporary intangibility
-                {
-                    //set player to only collide with default layer until intangible duration is over.  
-                }
-                else
-                {
-                    print("Player died to projectile");
-                    //kill player.  
-                }
-            }
+            handleProjectileCollision();
+        }
+        else if(collision.gameObject.layer == 8) //player collided with spike pit trap, or saw trap (moving or stationary).  
+        {
+            handleTrapCollision(collision);
         }
     }
 
