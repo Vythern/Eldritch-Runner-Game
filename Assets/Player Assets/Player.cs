@@ -129,7 +129,10 @@ public class Player : MonoBehaviour
             }
             else
             {
-                playerBody.linearVelocityX = 0;
+
+                Vector2 direction = (this.transform.position - col.transform.position).normalized;
+                playerBody.linearVelocity = Vector2.zero;
+                playerBody.AddForce(direction * 5f, ForceMode2D.Impulse);
                 playerBody.gravityScale = 0.33f;
                 this.enabled = false;
                 print("Player died to trap");

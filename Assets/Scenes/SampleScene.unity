@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &91828663
+--- !u!1001 &115276688
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -127,55 +127,55 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+    - target: {fileID: 2482284913022561780, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.21
+      value: 198.9
       objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+    - target: {fileID: 2482284913022561780, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.45
+      value: 1.2
       objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+    - target: {fileID: 2482284913022561780, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0054009426
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+    - target: {fileID: 2482284913022561780, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+    - target: {fileID: 2482284913022561780, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+    - target: {fileID: 2482284913022561780, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+    - target: {fileID: 2482284913022561780, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+    - target: {fileID: 2482284913022561780, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+    - target: {fileID: 2482284913022561780, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+    - target: {fileID: 2482284913022561780, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3735091475153836079, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+    - target: {fileID: 3735091475153836079, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
       propertyPath: m_Name
-      value: Saw Trap (Stationary) (1)
+      value: Down Right Saw Trap (Long)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 7da0b7b07deed094a8c8774bfd1e3950, type: 3}
 --- !u!1 &155527265
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,6 +575,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &350729659
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 31.76842
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.6914868
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
+      propertyPath: m_Name
+      value: Up Saw Trap (Short)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2ae3ae624f148ee4f965179e582812b5, type: 3}
 --- !u!1 &364790439
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,6 +996,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &477546549
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: d45147859dd413e479decfea8e58f20c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 198.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: d45147859dd413e479decfea8e58f20c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: d45147859dd413e479decfea8e58f20c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: d45147859dd413e479decfea8e58f20c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: d45147859dd413e479decfea8e58f20c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: d45147859dd413e479decfea8e58f20c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: d45147859dd413e479decfea8e58f20c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: d45147859dd413e479decfea8e58f20c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: d45147859dd413e479decfea8e58f20c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: d45147859dd413e479decfea8e58f20c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: d45147859dd413e479decfea8e58f20c, type: 3}
+      propertyPath: m_Name
+      value: Right Left Saw Trap (Long)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d45147859dd413e479decfea8e58f20c, type: 3}
 --- !u!1 &528649872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,6 +2201,120 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &737462651
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 198.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+      propertyPath: m_Name
+      value: Up Left Saw Trap (Long)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 904f62fc9450ea74e9d23f7ee75fceca, type: 3}
+--- !u!1001 &751021086
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 198.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
+      propertyPath: m_Name
+      value: Down Left Saw Trap (Long)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1d1de758afd0b214e8703c110cf42355, type: 3}
 --- !u!1 &803218249
 GameObject:
   m_ObjectHideFlags: 0
@@ -3018,6 +3246,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1003054317
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 198.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
+      propertyPath: m_Name
+      value: Up Down Saw Trap (Long)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: adb53f4f9cebb2a458c295ce6dd11e6c, type: 3}
 --- !u!1001 &1017076866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3513,6 +3798,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1094927330
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 25.103138
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.556466
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
+      propertyPath: m_Name
+      value: Down Saw Trap (Short)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a492d74871452b249bfc2871f47b5e90, type: 3}
 --- !u!1 &1101028097
 GameObject:
   m_ObjectHideFlags: 0
@@ -3779,6 +4121,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1122639989
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 198.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_Name
+      value: Stationary Saw Trap (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: adcf90958ce213a47b939df1b01add24, type: 3}
 --- !u!1 &1241542692
 GameObject:
   m_ObjectHideFlags: 0
@@ -5432,6 +5831,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1820020777
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 15.161192
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.109059334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_Name
+      value: Stationary Saw Trap
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: adcf90958ce213a47b939df1b01add24, type: 3}
 --- !u!1 &1830419079
 GameObject:
   m_ObjectHideFlags: 0
@@ -5565,6 +6021,63 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.99999994}
   m_EdgeRadius: 0
+--- !u!1001 &1863854064
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 15.161192
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.107855
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: adcf90958ce213a47b939df1b01add24, type: 3}
+      propertyPath: m_Name
+      value: Stationary Saw Trap (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: adcf90958ce213a47b939df1b01add24, type: 3}
 --- !u!1 &1934998308
 GameObject:
   m_ObjectHideFlags: 0
@@ -5964,6 +6477,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1992296361
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: 902a64b56b856024783a8422c4247139, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 198.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 902a64b56b856024783a8422c4247139, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 902a64b56b856024783a8422c4247139, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 902a64b56b856024783a8422c4247139, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 902a64b56b856024783a8422c4247139, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 902a64b56b856024783a8422c4247139, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 902a64b56b856024783a8422c4247139, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 902a64b56b856024783a8422c4247139, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 902a64b56b856024783a8422c4247139, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 902a64b56b856024783a8422c4247139, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: 902a64b56b856024783a8422c4247139, type: 3}
+      propertyPath: m_Name
+      value: Down Up Saw Trap (Long)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 902a64b56b856024783a8422c4247139, type: 3}
 --- !u!1 &2027717179
 GameObject:
   m_ObjectHideFlags: 0
@@ -6097,6 +6667,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2039733784
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 198.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
+      propertyPath: m_Name
+      value: Up Right Saw Trap (Long)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a8f275cee7f808546a794283fcd9aa8d, type: 3}
 --- !u!1 &2048742856
 GameObject:
   m_ObjectHideFlags: 0
@@ -6363,6 +6990,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2079499965
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2482284913022561780, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 198.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482284913022561780, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735091475153836079, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
+      propertyPath: m_Name
+      value: Left Right Saw Trap (Long)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9532a68595e477e48afdd75f7c0b3667, type: 3}
 --- !u!1 &2111626923
 GameObject:
   m_ObjectHideFlags: 0
@@ -6553,63 +7237,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebfecf950d8d18541a93f442e996c734, type: 3}
---- !u!1001 &5513890762652949564
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 15.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.0054009426
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2482284913022561780, guid: adcf90958ce213a47b939df1b01add24, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3735091475153836079, guid: adcf90958ce213a47b939df1b01add24, type: 3}
-      propertyPath: m_Name
-      value: Saw Trap (Stationary)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: adcf90958ce213a47b939df1b01add24, type: 3}
 --- !u!1001 &6157841427701877574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6706,5 +7333,16 @@ SceneRoots:
   - {fileID: 386222225}
   - {fileID: 1017076866}
   - {fileID: 6157841427701877574}
-  - {fileID: 5513890762652949564}
-  - {fileID: 91828663}
+  - {fileID: 1820020777}
+  - {fileID: 1863854064}
+  - {fileID: 1122639989}
+  - {fileID: 751021086}
+  - {fileID: 115276688}
+  - {fileID: 1992296361}
+  - {fileID: 2079499965}
+  - {fileID: 477546549}
+  - {fileID: 1003054317}
+  - {fileID: 737462651}
+  - {fileID: 2039733784}
+  - {fileID: 350729659}
+  - {fileID: 1094927330}

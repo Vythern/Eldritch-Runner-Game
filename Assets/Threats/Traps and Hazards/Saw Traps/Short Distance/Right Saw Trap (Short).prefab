@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 7577340813374281699}
   - component: {fileID: 8794783456877703320}
   m_Layer: 8
-  m_Name: Saw Trap (Stationary)
+  m_Name: Right Saw Trap (Short)
   m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -432,6 +432,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 776b839ed3c47224db9b969c681e195b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetDistance: 4
+  targetDirection: {x: 1, y: 0}
+  speed: 1
+  rotationSpeed: 360
 --- !u!1 &3742555561987437562
 GameObject:
   m_ObjectHideFlags: 0
