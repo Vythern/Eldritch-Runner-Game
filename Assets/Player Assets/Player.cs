@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.IntegerTime;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,7 +23,6 @@ public class Player : MonoBehaviour
     private Vector2 cursorCoordinates; //Used to determine where the player's attacks and dash will go to.  Also could be used for parry / block angle.  
     [SerializeField] private GameObject cursorHelper; //Visual demonstration for where the cursor is.  
 
-
     private Vector2 movementDirection = Vector2.zero; //Track what direction the player is trying to move.  Send to fixed update later.  
     private Vector2 movementDirectionAngular = Vector2.zero; //same- for turning the player instead.  
     private bool grounded = false;
@@ -38,8 +38,16 @@ public class Player : MonoBehaviour
     private float lastParry = -4f;
     private float parryCooldown = 4f; //parry delay on whiff is large, but if the parry is successful, then the "lastParry" will be reset, allowing an immediate followup.  
     private bool isParrying = false;
-
     private float parryDuration = 0.3f; //Duration that the player is immune to damage and capable of reflecting projectiles / attacks.  
+
+
+    private float lastAttack = -1f;
+    private float attackCooldown = 0.6f; //attack has a 1 second cooldown.  
+    private bool isAttacking = false;
+    private List<GameObject> hitObjects = new List<GameObject>();
+
+    private float attackDuration = 0.2f; //Duration that the player's sword is active.  
+
 
     private int playerHealth = 2; //the number of hits that the player can take before death.  
     private float intangibleDuration = 2f; //Duration that the player is immune to taking another hit when damaged.  
@@ -53,7 +61,9 @@ public class Player : MonoBehaviour
     KeyCode Jump = KeyCode.Space;
     KeyCode Crouch = KeyCode.X;
     KeyCode Dash = KeyCode.LeftShift;
+    KeyCode Attack = KeyCode.Mouse0;
     KeyCode Parry = KeyCode.Mouse1;
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -210,7 +220,28 @@ public class Player : MonoBehaviour
         this.gameObject.layer = 6; //restore player's layer.  
     }
 
+    private IEnumerator activateAttackRoutine()
+    {
+        lastAttack = Time.time;
 
+        isAttacking = true;
+
+        float elapsedTime = 0f;
+        float attackTick = 0.02f; //how long each scan for enemies and obstacles lasts.  
+        //by default, scan 10 times per attack.  
+
+        while (elapsedTime < attackDuration)
+        {
+            handleAttack(); //check for enemies during this time frame.  
+            elapsedTime += attackTick;
+
+            yield return new WaitForSeconds(attackTick);
+        }
+
+        hitObjects.Clear();
+        isAttacking = false;
+        this.gameObject.layer = 6; //restore player's layer.  
+    }
 
 
 
@@ -273,7 +304,12 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        if(Input.GetKeyDown(Parry) && parryReady())
+        if (Input.GetKeyDown(Attack) && attackReady())
+        {
+            print("Attacking");
+            StartCoroutine("activateAttackRoutine");
+        }
+        if (Input.GetKeyDown(Parry) && parryReady())
         {
             print("Parrying");
             StartCoroutine("activateParryRoutine");
@@ -295,6 +331,7 @@ public class Player : MonoBehaviour
     {
         lastParry = Time.time - parryCooldown; //reset parry
         lastDash = Time.time - dashCooldown; //reset dash
+        lastAttack = Time.time - attackCooldown; //reset attack
         dashReady = true; 
         float timeSinceLastParry = Time.time - lastParry;
         print("parry reset:\nLast parry: " + lastParry +
@@ -302,9 +339,47 @@ public class Player : MonoBehaviour
               "\nParry ready: " + parryReady());
     }
 
+    private void handleAttack()
+    {
+        //attack will run every 0.02 seconds (10 times)
+        //attack will generate a hitbox in the direction of the player's cursor
+        //attack will destroy enemies and delete projectiles in the hurtbox.  
+        //this helps the player if they whiff their parry, but they have to be precise with the attack.  
+        //origin should be transform.pos + cursor position's normalized direction * 1.  
+        //direction should be the cursor's position * 1.  
+
+        //cursorHelper.transform.position - transform.position
+
+        Vector2 direction = cursorHelper.transform.position - transform.position;
+        Vector2 origin = new Vector2(this.transform.position.x, this.transform.position.y);
+        origin += direction.normalized * 1.5f;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(origin, new Vector2(2, 1), angle);
+
+        //RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, new Vector2(2f, 1f), 0f, direction.normalized);
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if( !(hitObjects.Contains(colliders[i].gameObject)) ) //only interact with objects that have been hit by the currently active attack.  
+            {
+                if (colliders[i].CompareTag("Projectile"))
+                {
+                    Projectile currentProjectile = colliders[i].gameObject.GetComponent<Projectile>();
+                    currentProjectile.activateHitEffect();
+                }
+                if (colliders[i].CompareTag("Trap") || colliders[i].CompareTag("Untagged"))
+                {
+                    playerBody.AddForce(-direction.normalized * 8.5f, ForceMode2D.Impulse);
+                }
+            }
+            hitObjects.Add(colliders[i].gameObject); //stop object / enemy / projectile / etc from being hit again
+        }
+    }
+
     private void handleParry()
     {
-        //TODO:  Make parry linger a short time period, so that it is more lenient with timing?  
         Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, 2f, projectileOnly); //make the parry directional?  
         for(int i = 0; i < colliders.Length; i++)
         {
@@ -336,6 +411,12 @@ public class Player : MonoBehaviour
     private bool parryReady()
     {
         if(Time.time - lastParry >= parryCooldown) { return true; }
+        else { return false; }
+    }
+
+    private bool attackReady()
+    {
+        if (Time.time - lastAttack >= attackCooldown) { return true; }
         else { return false; }
     }
 
@@ -382,6 +463,22 @@ public class Player : MonoBehaviour
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(transform.position, 2f);
+        }
+
+        if(isAttacking)
+        {
+            Gizmos.color = Color.red;
+
+            Vector2 direction = cursorHelper.transform.position - transform.position;
+            Vector2 origin = (Vector2)transform.position + direction.normalized * 1.5f;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            Matrix4x4 rotationMatrix = Matrix4x4.TRS(origin, Quaternion.Euler(0, 0, angle), Vector3.one);
+            Gizmos.matrix = rotationMatrix;
+
+            Gizmos.DrawWireCube(Vector3.zero, new Vector2(2, 1));
+
+            Gizmos.matrix = Matrix4x4.identity;
         }
 
     }
