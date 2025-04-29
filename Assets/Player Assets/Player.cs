@@ -14,11 +14,16 @@ public class Player : MonoBehaviour
     //TODO:  The ground collider may or may not actually be getting used.  I believe it is set as a trigger and therefore separate, but the serialized field might do nothing in this case?  
 
 
-    private float dashCooldown = 1f; //The player can dash once per second, this cooldown can be reset by interacting with the game environment in some ways, eg parrying attacks or "pogoing".  
-    private float lastDash = 0f;
+    private float teleportDashCooldown = 4f; //the player also has a teleport dash that provides immunity frames.  
+    private float lastTeleportDash = 0f;
     private bool dashReady = true;
+    private bool teleportReady = true;
+    private float dashImmunityDuration = 1.2f;
+    private Color originalColor;
     [SerializeField] private float dashForce = 20f; //dash force should be roughly equivalent to the player's maximum horizontal movement speed.  
-    //If it's too low, then the player loses speed by dashing.  If it's really high, it will quickly be dropped by friction.  Aim high with this number.  
+                                                    //If it's too low, then the player loses speed by dashing.  If it's really high, it will quickly be dropped by friction.  Aim high with this number.  
+
+    private LayerMask defaultAndTraps = (1 << 0) | (1 << 8);
 
     private Vector2 cursorCoordinates; //Used to determine where the player's attacks and dash will go to.  Also could be used for parry / block angle.  
     [SerializeField] private GameObject cursorHelper; //Visual demonstration for where the cursor is.  
@@ -171,6 +176,8 @@ public class Player : MonoBehaviour
 
         this.gameObject.layer = 11;
 
+        lastDamageInstance = Time.time;
+
         SpriteRenderer renderer = GetComponent<SpriteRenderer>(); //sprite renderer must not be in children.  
 
         float elapsedTime = 0f;
@@ -194,12 +201,25 @@ public class Player : MonoBehaviour
         Color finalColor = renderer.color;
         finalColor.a = 1f;
         renderer.color = finalColor;
-        this.gameObject.layer = 6;
+    }
+
+    private IEnumerator activateDashImmunity()
+    {
+        //make player's layer "intangible" for the duration
+        //make player generate particle effects.  
+        //play teleport dash sound effect
+        //Make player orange (for now).  
+
+        this.gameObject.layer = 11;
+
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>(); //sprite renderer must not be in children.  
+        renderer.color = Color.black;
+
+        yield return new WaitForSeconds(dashImmunityDuration);
     }
 
     private IEnumerator activateParryRoutine()
     {
-        this.gameObject.layer = 11; //player is intangible throughout the parry's duration
         lastParry = Time.time;
 
         isParrying = true;
@@ -216,8 +236,28 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(parryTick);
         }
 
-        isParrying = false;
-        this.gameObject.layer = 6; //restore player's layer.  
+        isParrying = false;        
+    }
+
+    private bool isPlayerIntangible()
+    {
+        //if the player has an active invulnerability, then we can use this to check whether or not the coroutines should reset it.  
+        if (Time.time - lastDamageInstance <= intangibleDuration) 
+        {
+            //player's transparency blink should be active
+            return true;
+        }
+        if (Time.time - lastTeleportDash <= dashImmunityDuration)
+        {
+            //player's dash visual should be active.  
+            return true;
+        }
+        else
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().color = originalColor;
+            //return player's dash visual to off state.  (For now this means return to original renderer colour)
+        }
+        return false;
     }
 
     private IEnumerator activateAttackRoutine()
@@ -240,7 +280,6 @@ public class Player : MonoBehaviour
 
         hitObjects.Clear();
         isAttacking = false;
-        this.gameObject.layer = 6; //restore player's layer.  
     }
 
 
@@ -330,13 +369,13 @@ public class Player : MonoBehaviour
     private void resetCooldowns()
     {
         lastParry = Time.time - parryCooldown; //reset parry
-        lastDash = Time.time - dashCooldown; //reset dash
+
         lastAttack = Time.time - attackCooldown; //reset attack
-        dashReady = true; 
-        float timeSinceLastParry = Time.time - lastParry;
-        print("parry reset:\nLast parry: " + lastParry +
-              "\nTime.time - lastParry: " + timeSinceLastParry +
-              "\nParry ready: " + parryReady());
+
+        //lastTeleportDash = Time.time - teleportDashCooldown; //reset the player's normal dash and their teleport dash.  
+        dashReady = true;
+        teleportReady = true;
+
     }
 
     private void handleAttack()
@@ -352,8 +391,8 @@ public class Player : MonoBehaviour
 
         Vector2 direction = cursorHelper.transform.position - transform.position;
         Vector2 origin = new Vector2(this.transform.position.x, this.transform.position.y);
-        origin += direction.normalized * 1.5f;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        origin += direction.normalized * 1.25f;
+        float angle = 90f + Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
 
         Collider2D[] colliders = Physics2D.OverlapBoxAll(origin, new Vector2(2, 1), angle);
@@ -423,11 +462,37 @@ public class Player : MonoBehaviour
     private void dash()
     {
         dashReady = false;
-        lastDash = Time.time;
 
         Vector2 dashDirection = (cursorHelper.transform.position - transform.position).normalized;
+
         playerBody.linearVelocity = Vector2.zero;
+        
         Vector2 finalForce = dashForce * new Vector2(dashDirection.x, dashDirection.y * 0.5f);
+
+        if (teleportReady)
+        {
+            lastTeleportDash = Time.time;
+            teleportReady = false;
+            dashReady = true; //allow player to immediately dash again after a teleport dash.  
+
+            StartCoroutine("activateDashImmunity");
+            //teleport towards cursor up to a maximum distance of 5f.  
+            //If there is a trap or wall in the way, teleport to the closest point on bounds.  
+
+            Vector3 teleportTransform = Vector3.zero;
+            RaycastHit2D hit = Physics2D.Raycast(this.gameObject.transform.position, dashDirection, 5f, defaultAndTraps);
+            if(hit.collider != null) //object within 5f units
+            {
+                teleportTransform = dashDirection * Mathf.Clamp(Vector2.Distance(hit.point, this.gameObject.transform.position), 0f, 5f);
+            }
+            else //Nothing in the way
+            {
+                teleportTransform = dashDirection * Mathf.Clamp(Vector2.Distance(cursorCoordinates, this.transform.position), 0f, 5f);
+            }
+            this.gameObject.transform.position += teleportTransform;
+        }
+
+
         playerBody.AddForce(finalForce, ForceMode2D.Impulse);
         //get mouse cursor position, add velocity in direction of mouse cursor.  
     }
@@ -435,7 +500,7 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        originalColor = GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame
@@ -443,6 +508,16 @@ public class Player : MonoBehaviour
     {
         cursorCoordinates = Camera.main.ScreenToWorldPoint((Vector2)Input.mousePosition);
         cursorHelper.transform.position = new Vector3(cursorCoordinates.x, cursorCoordinates.y, 0f);
+        
+        if(Time.time - lastTeleportDash >= teleportDashCooldown)
+        {
+            teleportReady = true;
+        }
+        if (!isPlayerIntangible()) 
+        {
+            this.gameObject.layer = 6;
+        }
+        
         //print("Coordinates:  " + cursorCoordinates);
         //print("Helper location:  " + cursorHelper.transform.position);
 
@@ -470,8 +545,8 @@ public class Player : MonoBehaviour
             Gizmos.color = Color.red;
 
             Vector2 direction = cursorHelper.transform.position - transform.position;
-            Vector2 origin = (Vector2)transform.position + direction.normalized * 1.5f;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Vector2 origin = (Vector2)transform.position + direction.normalized * 1.25f;
+            float angle = 90f + Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
             Matrix4x4 rotationMatrix = Matrix4x4.TRS(origin, Quaternion.Euler(0, 0, angle), Vector3.one);
             Gizmos.matrix = rotationMatrix;
