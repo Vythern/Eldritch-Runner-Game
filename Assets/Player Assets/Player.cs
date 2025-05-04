@@ -518,7 +518,8 @@ public class Player : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(this.gameObject.transform.position, dashDirection, 5f, defaultAndTraps);
             if(hit.collider != null) //object within 5f units
             {
-                teleportTransform = dashDirection * Mathf.Clamp(Vector2.Distance(hit.point, this.gameObject.transform.position), 0f, 5f);
+                //We multiply the number by 0.5 so that the player does not get stuck in walls.  All though the hit.point is correct, the player's body is not infinitely small.  
+                teleportTransform = 0.5f * dashDirection * Mathf.Clamp(Vector2.Distance(hit.point, this.gameObject.transform.position), 0f, 5f);
             }
             else //Nothing in the way
             {
