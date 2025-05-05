@@ -123,7 +123,6 @@ public class Player : MonoBehaviour
             }
             //start intangibility coroutine.  
             StartCoroutine("activateInvulnerability");
-            print("Player hit by projectile");
             lastDamageInstance = Time.time;
             playerHealth--;
             if (playerHealth >= 1) //if player has health remaining, then give them temporary intangibility
@@ -136,7 +135,6 @@ public class Player : MonoBehaviour
                 PlaySound(playerHurtSound); //TODO:  Player death sound
                 playerBody.linearVelocityX = 0;
                 this.enabled = false;
-                print("Player died to projectile");
                 //kill player.  
             }
         }
@@ -148,7 +146,6 @@ public class Player : MonoBehaviour
         {
             //start intangibility coroutine.  
             StartCoroutine("activateInvulnerability");
-            print("Player hit trap");
             lastDamageInstance = Time.time;
             playerHealth--;
             if (playerHealth >= 1) //if player has health remaining, then give them temporary intangibility
@@ -167,7 +164,6 @@ public class Player : MonoBehaviour
                 playerBody.AddForce(direction * 5f, ForceMode2D.Impulse);
                 playerBody.gravityScale = 0.33f;
                 this.enabled = false;
-                print("Player died to trap");
                 //kill player.  
             }
         }
@@ -373,14 +369,12 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(Attack) && attackReady())
         {
-            print("Attacking");
             PlaySound(playerAttackSound);
             StartCoroutine("activateAttackRoutine");
         }
         if (Input.GetKeyDown(Parry) && parryReady())
         {
             PlaySound(playerParrySound);
-            print("Parrying");
             StartCoroutine("activateParryRoutine");
         }
     }
@@ -518,7 +512,8 @@ public class Player : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(this.gameObject.transform.position, dashDirection, 5f, defaultAndTraps);
             if(hit.collider != null) //object within 5f units
             {
-                teleportTransform = dashDirection * Mathf.Clamp(Vector2.Distance(hit.point, this.gameObject.transform.position), 0f, 5f);
+                //We multiply the number by 0.5 so that the player does not get stuck in walls.  All though the hit.point is correct, the player's body is not infinitely small.  
+                teleportTransform = 0.5f * dashDirection * Mathf.Clamp(Vector2.Distance(hit.point, this.gameObject.transform.position), 0f, 5f);
             }
             else //Nothing in the way
             {
@@ -545,27 +540,17 @@ public class Player : MonoBehaviour
         cursorCoordinates = Camera.main.ScreenToWorldPoint((Vector2)Input.mousePosition);
         cursorHelper.transform.position = new Vector3(cursorCoordinates.x, cursorCoordinates.y, 0f);
         
-        if(Time.time - lastTeleportDash >= teleportDashCooldown)
-        {
-            teleportReady = true;
-        }
-        if (!isPlayerIntangible()) 
-        {
-            this.gameObject.layer = 6;
-        }
+        if(Time.time - lastTeleportDash >= teleportDashCooldown) { teleportReady = true; }
+        if (!isPlayerIntangible()) { this.gameObject.layer = 6; }
 
 
 
         setPlayerGroundedness();
-        print("Grounded = " + grounded);
+        handleInput();
         //print("Coordinates:  " + cursorCoordinates);
         //print("Helper location:  " + cursorHelper.transform.position);
-
-
-
         //print(grounded);
         //print(playerBody.linearVelocity);
-        handleInput();
     }
 
     private void OnDrawGizmos() //visual debugging
