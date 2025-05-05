@@ -90,6 +90,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private Vector3 findSolidGround()
+    {
+        return activeCells[1].GetComponent<Cell>().floorTiles[0].transform.position + new Vector3(1f, 6f, player.transform.position.z);
+    }
+
     //Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -99,6 +104,8 @@ public class GameManager : MonoBehaviour
 
         //generate initial cells.  
         initializeCells();
+
+        player.transform.position = findSolidGround();
     }
 
     //Update is called once per frame

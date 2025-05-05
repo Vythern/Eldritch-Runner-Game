@@ -5,12 +5,14 @@ using UnityEngine;
 public class Cell : MonoBehaviour
 {
     [Header("Tiles")]
-    [SerializeField] private GameObject[] floorTiles;
-    [SerializeField] private GameObject[] ceilingTiles;
+    [SerializeField] public GameObject[] floorTiles;
+    [SerializeField] public GameObject[] ceilingTiles;
 
     private float generationBudget = 0f;
     public GameObject leftCell = null;
     public GameObject rightCell = null;
+
+    private float gridOffset = 2.5f;
 
     public enum TrapType
     {
@@ -49,33 +51,106 @@ public class Cell : MonoBehaviour
 
     private void randomizeCellPositions()
     {
-        //Set the heights of all tiles.  
-        //We should go left to right, floor to ceiling.  
-        for(int i = 0; i < floorTiles.Length; i++)
+        //the floor can always move to minimum height, and the ceiling can always move to maximum height.  
+        //the floor can move up to the ceiling height of the left tile - 5
+        //the ceiling can move up to the floor height of the left tile + 5
+        //if we are evaluating i = 0, it means the left tile is the final tile of the leftCell
+        //if we are evaluating the final iteration, it means the right tile is the first tile of the right cell.  This shouldn't matter though.  
+        //floor height choice must precede ceiling height choice
+
+        //Check if the floor and ceiling tiles can move based on these rules
+        for (int i = 0; i < floorTiles.Length; i++)
         {
-            break;
-            //We then ensure that there is a valid gap between the tiles for the player to cross, of at least 5 units clearance
-            //we check the height of the floor and ceiling tile to the left of the current iteration to verify the 5 unit clearance.  
-            floorTiles[i].transform.position = new Vector3(this.transform.position.x, getValidFloorHeight(floorTiles[i]), this.transform.position.z);
-            floorTiles[i].transform.position = new Vector3(this.transform.position.x, getValidCeilingHeight(ceilingTiles[i]), this.transform.position.z);
+            floorTiles[i].transform.position = new Vector3(floorTiles[i].transform.position.x, gridOffset + getValidFloorHeight(i));
+            ceilingTiles[i].transform.position = new Vector3(ceilingTiles[i].transform.position.x, gridOffset + getValidCeilingHeight(i));
         }
         //validate generation shape.  
     }
 
-    private int getValidFloorHeight(GameObject currentTile)
+    private float getValidFloorHeight(int currentTile)
     {
-        //Valid floor heights include any height where the floor does not raise such that the distance between the ceiling and floor is less than 5 units.  
-        //Floor is checked first, ceiling next.  
-        //This might make some outcomes more likely, may need further evaluation
-        return 0;
+        if(leftCell == null) //if this cell has no neighboring cell, then return default height- it probably is the starting cell where the monster originates.  
+        {
+            return 0f;
+        }
+        float minimumFloor = 0f;
+        float maximumFloor = 0f;
+
+        float leftCeilingHeight = 0;
+        float leftFloorHeight = 0f;
+
+
+        if (currentTile == 0) //this is the start of the new cell, we need to find the height of the final tile of the previous cell.  
+        {
+            leftCeilingHeight = this.leftCell.GetComponent<Cell>().ceilingTiles[9].transform.position.y;
+            leftFloorHeight = this.leftCell.GetComponent<Cell>().floorTiles[9].transform.position.y;
+        }
+        else if (currentTile >= 1 && currentTile <= 9) //Find the tile to the left of this tile.  
+        {
+            leftCeilingHeight = ceilingTiles[currentTile - 1].transform.position.y;
+            leftFloorHeight = floorTiles[currentTile - 1].transform.position.y;
+        }
+        else
+        {
+            print("Error");
+        }
+        
+        maximumFloor = leftCeilingHeight - 10f;
+        if(maximumFloor >= 20) { maximumFloor = 20; }
+
+
+        int changeHeightRoll = Random.Range(1, 5);
+
+        if (changeHeightRoll == 1)
+        {
+            //return a random integer casted to float from minimum to maximum
+            int minStep = Mathf.CeilToInt(minimumFloor / 5f);
+            int maxStep = Mathf.FloorToInt(maximumFloor / 5f);
+            int randomStep = Random.Range(minStep, maxStep);
+            return randomStep * 5f;
+        }
+        else
+        {
+            return leftFloorHeight - gridOffset;
+        }
     }
 
-    private int getValidCeilingHeight(GameObject currentTile)
+    private float getValidCeilingHeight(int currentTile)
     {
-        //Valid floor heights include any height where the floor does not raise such that the distance between the ceiling and floor is less than 5 units.  
-        //Floor is checked first, ceiling next.  
-        //This might make some outcomes more likely, may need further evaluation
-        return 0;
+        if (leftCell == null) //if this cell has no neighboring cell, then return default height- it probably is the starting cell where the monster originates.  
+        {
+            return 25f;
+        }
+
+        float minimumCeiling = 25f;
+        float maximumCeiling = 25f;
+
+        float floorHeight = floorTiles[currentTile].transform.position.y;
+        float leftFloorHeight = 0f;
+
+        if (currentTile == 0) //this is the start of the new cell, we need to find the height of the final tile of the previous cell.  
+        {
+            leftFloorHeight = this.leftCell.GetComponent<Cell>().floorTiles[9].transform.position.y;
+        }
+        else if (currentTile >= 1 && currentTile <= 9) //Find the tile to the left of this tile.  
+        {
+            leftFloorHeight = floorTiles[currentTile - 1].transform.position.y;
+        }
+        else
+        {
+            print("Error");
+        }
+
+        float option1 = leftFloorHeight + 10f;
+        float option2 = floorHeight + 10f;
+
+        minimumCeiling = Mathf.Max(option1, option2);
+
+        //return a random integer casted to float from minimum to maximum
+        int minStep = Mathf.CeilToInt(minimumCeiling / 5f);
+        int maxStep = Mathf.FloorToInt(maximumCeiling / 5f);
+        int randomStep = Random.Range(minStep, maxStep + 1);
+        return randomStep * 5f;
     }
 
     private void generateTrapsAndEnemies()
@@ -89,8 +164,9 @@ public class Cell : MonoBehaviour
 
     public void initializeCell(GameObject left, GameObject right, float budget)
     {
-        this.leftCell = left;
-        this.rightCell = right;
+        if(left != null)    { this.leftCell = left; }
+        if (right != null)  { this.rightCell = right; }
+
         this.generationBudget = budget;
 
         //set the heights of all tiles, must be valid positions
@@ -100,11 +176,7 @@ public class Cell : MonoBehaviour
         generateTrapsAndEnemies();
     }
 
-    
-
-    
-
-    // Update is called once per frame
+    //Update is called once per frame
     void Update()
     {
         
