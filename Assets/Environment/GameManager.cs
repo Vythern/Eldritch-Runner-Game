@@ -83,22 +83,48 @@ public class GameManager : MonoBehaviour
         if (activeCells[activeCells.Count - 1].transform.position.x - player.transform.position.x <= 100)
         {
             //generate a new cell
-            GameObject newCell = Instantiate<GameObject>(defaultCell, new Vector3(activeCells[activeCells.Count - 1].transform.position.x + 50, 0f, 0f), Quaternion.identity);
-            activeCells.Add(newCell);
-            newCell.GetComponent<Cell>().initializeCell(activeCells[activeCells.Count - 2].GetComponent<Cell>().gameObject, null, gameDifficulty * runDuration * 0.1f);
-            activeCells[activeCells.Count - 2].GetComponent<Cell>().rightCell = newCell;
+
+            //Choose random prefab from the furthest cell's list of valid prefabs
+            //then we instantiate that gameobject here.  
+
+            Cell furthestCell = activeCells[activeCells.Count - 1].GetComponent<Cell>();
+            print(furthestCell.validRightCellCount);
+            if(furthestCell.validRightCellCount > 0) //Generate a cell from the furthest right cell's list of valid "next" cells.  
+            {
+                GameObject newCell = Instantiate<GameObject>(furthestCell.getRandomValidCell(), new Vector3(activeCells[activeCells.Count - 1].transform.position.x + 50, 0f, 0f), Quaternion.identity);
+                activeCells.Add(newCell);
+                newCell.GetComponent<Cell>().initializeCell(activeCells[activeCells.Count - 2].GetComponent<Cell>().gameObject, null, gameDifficulty * runDuration * 0.1f);
+                activeCells[activeCells.Count - 2].GetComponent<Cell>().rightCell = newCell;
+            }
+            else //generate the default cell if no valid right cells are available.  Should never happen.  
+            {
+                GameObject newCell = Instantiate<GameObject>(defaultCell, new Vector3(activeCells[activeCells.Count - 1].transform.position.x + 50, 0f, 0f), Quaternion.identity);
+                activeCells.Add(newCell);
+                newCell.GetComponent<Cell>().initializeCell(activeCells[activeCells.Count - 2].GetComponent<Cell>().gameObject, null, gameDifficulty * runDuration * 0.1f);
+                activeCells[activeCells.Count - 2].GetComponent<Cell>().rightCell = newCell;
+            }
         }
+    }
+
+    private Vector3 findSolidGround()
+    {
+        return activeCells[1].GetComponent<Cell>().floorTiles[0].transform.position + new Vector3(1f, 6f, player.transform.position.z);
     }
 
     //Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //TODO:  REMOVE WHEN TESTING TRAP GENERATION IS DONE.  
+        runDuration = 10000000;
+        gameDifficulty = 1000000;
         //Renderer foregroundRenderer = foregroundQuad.GetComponent<Renderer>();
         //Renderer backgroundRendererforegroundRenderer = backgroundQuad.GetComponent<Renderer>();
         wallRenderer = wallQuad.GetComponent<Renderer>();
 
         //generate initial cells.  
         initializeCells();
+
+        player.transform.position = findSolidGround();
     }
 
     //Update is called once per frame
