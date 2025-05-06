@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject player; //track player's progress and game state to inform cells, monster, and scrolling.  
     [SerializeField] private GameObject monster; //Track how far along the monster is to determine game state, cell deletion, and player interaction
+
+
     [SerializeField] private List<GameObject> activeCells = new List<GameObject>(); //Generate and manage active cells based on monster distance and player progress
     [SerializeField] private GameObject defaultCell; //Prefab to derive all cells.  
 
@@ -23,7 +25,8 @@ public class GameManager : MonoBehaviour
 
     private float runDuration = 0f; //Track how long the game has lasted
     private int gameDifficulty = 3; //difficulty rating / difficulty multiplier.  Easy, medium, hard.  
-    
+    private float currentBudget = 0f; //Send budget to cells, updated over time.  
+
     private void clearStaleCells()
     {
         //check if monster has overtaken a cell.  
@@ -88,19 +91,19 @@ public class GameManager : MonoBehaviour
             //then we instantiate that gameobject here.  
 
             Cell furthestCell = activeCells[activeCells.Count - 1].GetComponent<Cell>();
-            print(furthestCell.validRightCellCount);
             if(furthestCell.validRightCellCount > 0) //Generate a cell from the furthest right cell's list of valid "next" cells.  
             {
                 GameObject newCell = Instantiate<GameObject>(furthestCell.getRandomValidCell(), new Vector3(activeCells[activeCells.Count - 1].transform.position.x + 50, 0f, 0f), Quaternion.identity);
                 activeCells.Add(newCell);
-                newCell.GetComponent<Cell>().initializeCell(activeCells[activeCells.Count - 2].GetComponent<Cell>().gameObject, null, gameDifficulty * runDuration * 0.1f);
+                newCell.GetComponent<Cell>().initializeCell(activeCells[activeCells.Count - 2].GetComponent<Cell>().gameObject, null, currentBudget);
+                print("Gave " + newCell.name + " a budget of:  " + currentBudget);
                 activeCells[activeCells.Count - 2].GetComponent<Cell>().rightCell = newCell;
             }
             else //generate the default cell if no valid right cells are available.  Should never happen.  
             {
                 GameObject newCell = Instantiate<GameObject>(defaultCell, new Vector3(activeCells[activeCells.Count - 1].transform.position.x + 50, 0f, 0f), Quaternion.identity);
                 activeCells.Add(newCell);
-                newCell.GetComponent<Cell>().initializeCell(activeCells[activeCells.Count - 2].GetComponent<Cell>().gameObject, null, gameDifficulty * runDuration * 0.1f);
+                newCell.GetComponent<Cell>().initializeCell(activeCells[activeCells.Count - 2].GetComponent<Cell>().gameObject, null, currentBudget);
                 activeCells[activeCells.Count - 2].GetComponent<Cell>().rightCell = newCell;
             }
         }
@@ -115,8 +118,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //TODO:  REMOVE WHEN TESTING TRAP GENERATION IS DONE.  
-        runDuration = 10000000;
-        gameDifficulty = 1000000;
         //Renderer foregroundRenderer = foregroundQuad.GetComponent<Renderer>();
         //Renderer backgroundRendererforegroundRenderer = backgroundQuad.GetComponent<Renderer>();
         wallRenderer = wallQuad.GetComponent<Renderer>();
@@ -130,6 +131,8 @@ public class GameManager : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
+        runDuration = Time.time;
+        currentBudget = 10 + (runDuration * gameDifficulty * 0.10f);
         //delete inactive cells / cells fully overtaken by the monster
         clearStaleCells();
 

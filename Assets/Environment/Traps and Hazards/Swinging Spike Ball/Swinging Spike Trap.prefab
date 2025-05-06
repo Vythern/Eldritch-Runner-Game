@@ -352,6 +352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8035051637931919527}
+  - component: {fileID: -508723600166099385}
   m_Layer: 0
   m_Name: Swinging Spike Trap
   m_TagString: Untagged
@@ -375,6 +376,19 @@ Transform:
   - {fileID: 2271408684046180676}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-508723600166099385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7142232431748470005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9891fcdfd0cd4c149a2c5adefcf4d075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 10
 --- !u!1 &7812156866770330673
 GameObject:
   m_ObjectHideFlags: 0

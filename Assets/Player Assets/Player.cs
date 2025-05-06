@@ -470,10 +470,14 @@ public class Player : MonoBehaviour
 
     public void triggerDeathPit()
     {
-        this.gameObject.layer = 5;
-        playerBody.linearVelocityX = 0;
-        playerBody.gravityScale = 0.33f;
-        this.enabled = false;
+        if(playerHealth == 1) //separate logic when dying to death pit
+        {
+            print("Lava pit death");
+            this.gameObject.layer = 5;
+            playerBody.linearVelocityX = 0;
+            playerBody.gravityScale = 0.33f;
+            this.enabled = false;
+        }
     }
 
     private bool parryReady()
