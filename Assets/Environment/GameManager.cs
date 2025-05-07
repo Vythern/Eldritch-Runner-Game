@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -117,6 +116,8 @@ public class GameManager : MonoBehaviour
     //Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        monster.GetComponent<Monster>().initializeMonster(this.player);
+        
         //TODO:  REMOVE WHEN TESTING TRAP GENERATION IS DONE.  
         //Renderer foregroundRenderer = foregroundQuad.GetComponent<Renderer>();
         //Renderer backgroundRendererforegroundRenderer = backgroundQuad.GetComponent<Renderer>();

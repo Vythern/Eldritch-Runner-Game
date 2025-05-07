@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.IntegerTime;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -140,6 +137,35 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void handleMonsterCollision(Collision2D col)
+    {
+        if (Time.time - lastDamageInstance >= intangibleDuration) //Do not register damage if the player is intangible.  
+        {
+            //start intangibility coroutine.  
+            StartCoroutine("activateInvulnerability");
+            lastDamageInstance = Time.time;
+            playerHealth--;
+            if (playerHealth >= 1) //if player has health remaining, then give them temporary intangibility
+            {
+                PlaySound(playerHurtSound);
+                //knockback player in opposite direction of monster.  
+                Vector2 direction = Vector2.right;
+                playerBody.linearVelocity = Vector2.zero;
+                playerBody.AddForce(direction * 10f, ForceMode2D.Impulse);
+            }
+            else
+            {
+                PlaySound(playerHurtSound); //TODO:  Player death sound
+                Vector2 direction = Vector2.right;
+                playerBody.linearVelocity = Vector2.zero;
+                playerBody.AddForce(direction * 10f, ForceMode2D.Impulse);
+                playerBody.gravityScale = 0.33f;
+                this.enabled = false;
+                //kill player.  
+            }
+        }
+    }
+
     private void handleTrapCollision(Collision2D col)
     {
         if (Time.time - lastDamageInstance >= intangibleDuration) //Do not register damage if the player is intangible.  
@@ -175,10 +201,15 @@ public class Player : MonoBehaviour
         {
             handleProjectileCollision();
         }
-        else if(collision.gameObject.layer == 8) //player collided with spike pit trap, or saw trap (moving or stationary).  
+        else if (collision.gameObject.layer == 8) //player collided with spike pit trap, or saw trap (moving or stationary).  
         {
             handleTrapCollision(collision);
         }
+        else if (collision.gameObject.layer == 12) //player collided with the eldritch horror
+        {
+            handleMonsterCollision(collision);
+        }
+
     }
 
     private void PlaySound(AudioClip[] clips)
