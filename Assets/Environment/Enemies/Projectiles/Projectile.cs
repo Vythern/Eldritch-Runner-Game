@@ -25,6 +25,13 @@ public class Projectile : MonoBehaviour
     {
         projectileOrigin = origin;
         projectileBody.AddForce(direction * projectileSpeed);
+        if (origin != null)
+        {
+            if (origin.layer == 12) //monster created the projectile
+            {
+                projectileBody.AddForce((projectileSpeed + origin.GetComponent<Monster>().getSpeed()) * direction);
+            }
+        }
     }
 
     public void reflect()
@@ -57,6 +64,7 @@ public class Projectile : MonoBehaviour
 
     public void activateHitEffect() //upon colliding, activate this projectile's on hit effect.  
     {
+        print("Pro:  " + projectileBody.linearVelocity.magnitude);
         switch(this.projectileType)
         {
             default:

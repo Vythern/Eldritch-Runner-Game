@@ -26,7 +26,18 @@ public class Monster : MonoBehaviour
     private void setSpeed()
     {
         float x = Vector3.Distance(this.gameObject.transform.position, playerReference.gameObject.transform.position);
-        moveSpeed = 3f + (0.01f * x * Time.time);
+        moveSpeed = 2.5f + (0.01f * x * Time.time);
+    }
+
+    private void spawnEye()
+    {
+        
+    }
+
+    public float getSpeed() //add to projectile speed when firing from eye turret.  
+    {
+        print("Monster:" + moveSpeed);
+        return this.moveSpeed;
     }
 
     // Update is called once per frame
