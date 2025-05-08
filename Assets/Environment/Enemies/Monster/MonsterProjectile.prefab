@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileBody: {fileID: 7718403039651553477}
-  projectileSpeed: 15
+  projectileSpeed: 35
   reflectMaterial: {fileID: 2100000, guid: 8122603e1fb83b34bbc6189776fc7cee, type: 2}
   projectileType: 1
   lifetime: 10

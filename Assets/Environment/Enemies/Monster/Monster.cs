@@ -36,7 +36,6 @@ public class Monster : MonoBehaviour
 
     public float getSpeed() //add to projectile speed when firing from eye turret.  
     {
-        print("Monster:" + moveSpeed);
         return this.moveSpeed;
     }
 

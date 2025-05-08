@@ -27,9 +27,12 @@ public class Projectile : MonoBehaviour
         projectileBody.AddForce(direction * projectileSpeed);
         if (origin != null)
         {
-            if (origin.layer == 12) //monster created the projectile
+            if (origin.GetComponentInParent<Monster>() != null) //monster created the projectile
             {
-                projectileBody.AddForce((projectileSpeed + origin.GetComponent<Monster>().getSpeed()) * direction);
+                float additiveSpeed = origin.GetComponentInParent<Monster>().getSpeed();
+                float velX = projectileBody.linearVelocity.x;
+                float velY = projectileBody.linearVelocity.y;
+                projectileBody.linearVelocity = new Vector2(additiveSpeed + velX, velY);
             }
         }
     }
@@ -38,11 +41,12 @@ public class Projectile : MonoBehaviour
     {
         if(projectileOrigin != null)
         {
+            print(projectileOrigin.name);
             this.GetComponent<Renderer>().material = reflectMaterial;
             this.gameObject.layer = 10; //change layer to reflected projectile so that it can no longer hit the player.  
             projectileBody.linearVelocity = Vector2.zero;
             Vector2 direction = projectileOrigin.transform.position - projectileBody.transform.position;
-            projectileBody.AddForce(direction * this.projectileSpeed * 4f);
+            projectileBody.AddForce(direction * this.projectileSpeed * 2f);
         }
     }
 
@@ -64,7 +68,6 @@ public class Projectile : MonoBehaviour
 
     public void activateHitEffect() //upon colliding, activate this projectile's on hit effect.  
     {
-        print("Pro:  " + projectileBody.linearVelocity.magnitude);
         switch(this.projectileType)
         {
             default:

@@ -1,15 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
 public class EyeTurret : MonoBehaviour
 {
     private GameObject playerReference = null;
     [SerializeField] private GameObject monsterProjectile = null;
+    [SerializeField] private GameObject openVisual = null; //transition between open and "blink" state
+    [SerializeField] private GameObject closedVisual = null; //enable and disable these based on when they were last hit / closed.  
     private Monster monsterReference = null;
 
     private float lastShot = 0f;
     private float lastScan = 0f;
-    private float shotDelay = 2f;
+    private float shotDelay = 1.5f;
     private float scanDelay = 0.5f;
+    
 
     private LayerMask playerOnly = (1 << 6);
 
@@ -17,10 +21,28 @@ public class EyeTurret : MonoBehaviour
     {
         if(collision.gameObject.layer == 10)
         {
-            //kill turret.  
-            //close the eye
-            //re-enable a random amount of time later divided by the difficulty.  
+            //close the eye- disable openVisual, enable closedVisual
+            //set a couroutine that re-enables this script's execution and flips the open and closed visuals back a random duration of time from now between 6 and 18 seconds
+            openVisual.SetActive(false);
+            closedVisual.SetActive(true);
+
+            this.gameObject.layer = 5;
+            this.enabled = false;
+
+            StartCoroutine(openEye());
         }
+    }
+
+    private IEnumerator openEye()
+    {
+        float delay = Random.Range(12f, 37f);
+        yield return new WaitForSeconds(delay);
+
+        openVisual.SetActive(true);
+        closedVisual.SetActive(false);
+
+        this.enabled = true;
+        this.gameObject.layer = 7;
     }
 
     private bool playerInRange()
@@ -28,7 +50,7 @@ public class EyeTurret : MonoBehaviour
         if (playerReference == null && Time.time - lastScan >= scanDelay) //check for player every ~0.5f seconds
         {
             lastScan = Time.time;
-            Collider2D[] collidersList = Physics2D.OverlapCircleAll((Vector2)this.transform.position, 100f, playerOnly);
+            Collider2D[] collidersList = Physics2D.OverlapCircleAll((Vector2)this.transform.position, 40f, playerOnly);
             for (int i = 0; i < collidersList.Length; i++)
             {
                 if (collidersList[i].CompareTag("Player"))
@@ -41,7 +63,7 @@ public class EyeTurret : MonoBehaviour
         else if(playerReference != null && Time.time - lastScan >= scanDelay)
         {
             lastScan = Time.time;
-            if (Vector2.Distance(playerReference.transform.position, this.gameObject.transform.position) <= 100f)
+            if (Vector2.Distance(playerReference.transform.position, this.gameObject.transform.position) <= 40f)
             {
                 return true;
             }
@@ -57,7 +79,7 @@ public class EyeTurret : MonoBehaviour
         
         Vector2 direction = playerReference.transform.position - this.transform.position;
 
-        currentProjectile.GetComponent<Projectile>().initializeProjectile(direction, monsterReference.gameObject);
+        currentProjectile.GetComponent<Projectile>().initializeProjectile(direction, this.gameObject);
     }
 
     private void Start()
