@@ -29,11 +29,6 @@ public class Monster : MonoBehaviour
         moveSpeed = 2.5f + (0.01f * x * Time.time);
     }
 
-    private void spawnEye()
-    {
-        
-    }
-
     public float getSpeed() //add to projectile speed when firing from eye turret.  
     {
         return this.moveSpeed;

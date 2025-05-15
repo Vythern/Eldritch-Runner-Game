@@ -47,14 +47,14 @@ public class GameManager : MonoBehaviour
         //scroll backgroundQuad.  Background Quad is 2x as long as a single cell
         //scroll wallQuad.  Wall Quad is 1x as long as a single cell.  
 
-        //foregroundQuad.transform.position = new Vector3(player.transform.position.x, wallQuad.transform.position.y, wallQuad.transform.position.z);
-        //backgroundQuad.transform.position = new Vector3(player.transform.position.x, wallQuad.transform.position.y, wallQuad.transform.position.z);
+        foregroundQuad.transform.position = new Vector3(player.transform.position.x, foregroundQuad.transform.position.y, foregroundQuad.transform.position.z);
+        backgroundQuad.transform.position = new Vector3(player.transform.position.x, backgroundQuad.transform.position.y, backgroundQuad.transform.position.z);
         wallQuad.transform.position = new Vector3(player.transform.position.x, wallQuad.transform.position.y, wallQuad.transform.position.z);
         
         float deltaX = player.transform.position.x;
 
-        //foregroundRenderer.material.mainTextureOffset = new Vector2(deltaX * foregroundSpeed, 0f);
-        //backgroundRenderer.material.mainTextureOffset = new Vector2(deltaX * backgroundSpeed, 0f);
+        foregroundRenderer.material.mainTextureOffset = new Vector2(deltaX * foregroundSpeed, 0f);
+        backgroundRenderer.material.mainTextureOffset = new Vector2(deltaX * backgroundSpeed, 0f);
         wallRenderer.material.mainTextureOffset = new Vector2(deltaX * wallSpeed, 0f);
     }
 
@@ -119,8 +119,8 @@ public class GameManager : MonoBehaviour
         monster.GetComponent<Monster>().initializeMonster(this.player);
         
         //TODO:  REMOVE WHEN TESTING TRAP GENERATION IS DONE.  
-        //Renderer foregroundRenderer = foregroundQuad.GetComponent<Renderer>();
-        //Renderer backgroundRendererforegroundRenderer = backgroundQuad.GetComponent<Renderer>();
+        foregroundRenderer = foregroundQuad.GetComponent<Renderer>();
+        backgroundRenderer = backgroundQuad.GetComponent<Renderer>();
         wallRenderer = wallQuad.GetComponent<Renderer>();
 
         //generate initial cells.  
