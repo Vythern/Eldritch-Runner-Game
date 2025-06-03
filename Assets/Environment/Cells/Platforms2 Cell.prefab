@@ -1815,6 +1815,7 @@ MonoBehaviour:
   - {fileID: 5591046074799986471, guid: cf465692c30cb114bb74e439a846ba8b, type: 3}
   - {fileID: 5591046074799986471, guid: e4e85194d1f22e74b9a479795cb7e971, type: 3}
   - {fileID: 5591046074799986471}
+  - {fileID: 5591046074799986471, guid: e4e675e3a6f427b46ac22e9ea3fe14d0, type: 3}
   validRightCellCount: 0
 --- !u!1 &5721043960781876222
 GameObject:

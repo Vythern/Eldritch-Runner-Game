@@ -13,8 +13,8 @@ public class Cell : MonoBehaviour
 
     [SerializeField] private List<GameObject> validExtras = new List<GameObject>();
     [SerializeField] private List<GameObject> validRightCells = new List<GameObject>();
-    public int validRightCellCount = 0;
-
+    public int validRightCellCount = 0; //Do not modify in inspector
+    
     private float minimumCost = 10000f;
 
     /*public enum TrapType

@@ -587,7 +587,7 @@ public class Player : MonoBehaviour
         //print(grounded);
         //print(playerBody.linearVelocity);
     }
-
+    
     private void OnDrawGizmos() //visual debugging
     {
         Gizmos.color = Color.cyan;
@@ -627,6 +627,13 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            playerHealth = 1000;
+        }
+
+
+
         applyPhysics();
         //print(playerBody.linearVelocity.x);
         playerBody.AddForce(movementDirection.x * 1000 * transform.right * Time.fixedDeltaTime);
