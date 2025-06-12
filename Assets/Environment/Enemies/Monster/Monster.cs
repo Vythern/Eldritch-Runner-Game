@@ -10,6 +10,10 @@ public class Monster : MonoBehaviour
 
     private GameObject playerReference = null;
 
+    public float baseSpeed;
+    public float speedIncrement1;
+    public float speedIncrement2;
+
     public void setBudget(float budget) { attackBudget = budget; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,7 +30,17 @@ public class Monster : MonoBehaviour
     private void setSpeed()
     {
         float x = Vector3.Distance(this.gameObject.transform.position, playerReference.gameObject.transform.position);
-        moveSpeed = 2.5f + (0.01f * x * Time.time);
+
+        // Base speed increment
+        moveSpeed = baseSpeed + (speedIncrement1 * x * Time.time);
+        print("Distance To Player: "+ x);
+
+        float distanceMod = Mathf.Clamp((x / 50), .4f, 1);
+
+        // Second speed increment
+        moveSpeed *= distanceMod;
+        moveSpeed += (speedIncrement2 * x * Time.time);
+        print("Enemy Move Speed: " + moveSpeed);
     }
 
     public float getSpeed() //add to projectile speed when firing from eye turret.  
